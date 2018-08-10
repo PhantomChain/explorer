@@ -1,0 +1,37 @@
+{
+  "title": "Phantom Testnet Explorer",
+  "server": "http://18.218.68.94:4100/api",
+  "alias": "TestNet",
+  "activeDelegates": 51,
+  "rewardOffset": 75600,
+  "currencies": {
+    "AUD": "A$",
+    "BRL": "R$",
+    "BTC": "Ƀ",
+    "CAD": "C$",
+    "CHF": "CHF",
+    "CNY": "¥",
+    "ETH": "Ξ",
+    "EUR": "€",
+    "GBP": "£",
+    "INR": "₹",
+    "JPY": "¥",
+    "KRW": "₩",
+    "LTC": "Ł",
+    "NZD": "N$",
+    "RUB": "₽",
+    "USD": "$"
+  },
+  "knownWallets": {
+    "JhBpXaifvk4ixwKjxYdw4nZR547ucf2Twt": "Genesis Wallet"
+  },
+  "defaults": {
+    "currency": {
+      "name": "USD",
+      "symbol": "$"
+    }
+  },
+  "config": {
+    "priceChart": false
+  }
+}

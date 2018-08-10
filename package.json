@@ -1,5 +1,5 @@
 {
-  "name": "ark-explorer",
+  "name": "phantom-explorer",
   "version": "3.0.0",
   "description": "A Blockchain Explorer for ARK using Vue.js and Tailwind CSS",
   "author": "Brian Faust",
@@ -15,7 +15,7 @@
     "build": "node build/build.js",
     "build:mainnet": "node build/build.js --network mainnet",
     "build:devnet": "node build/build.js --network devnet",
-    "build:testnet": "node build/build.js --network testnet",
+    "build:phantomTestnet": "node build/build.js --network phantomTestnet",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "dev:mainnet": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env.network=mainnet",
     "dev:devnet": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env.network=devnet",

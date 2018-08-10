@@ -1,10 +1,10 @@
 <template>
   <footer class="max-w-2xl mx-auto px-5 md:px-10 py-8 text-theme-text-tertiary flex flex-col lg:flex-row flex-wrap justify-between items-center">
     <div class="mb-4 lg:mb-0 text-center md:text-left">
-      <span class="block md:inline-block mb-4 md:mb-0 text-center">&copy; <a href="https://ark.io" target="_blank">Ark.io</a> | {{ year }}. {{ $t("All rights reserved") }}</span> <div class="block md:inline-block"><span class="hidden md:inline-block"> | </span> <span>{{ $t("Version") }}: <a :href="versionLink" target="_blank">{{ version }}</a> | {{ $t("Date") }}: {{ date }}</span></div>
+      <span class="block md:inline-block mb-4 md:mb-0 text-center">&copy; Phantom.io | {{ year }}. {{ $t("All rights reserved") }}</span> <div class="block md:inline-block"><span class="hidden md:inline-block"> | </span> <span>{{ $t("Version") }}: <a :href="versionLink" target="_blank">{{ version }}</a> | {{ $t("Date") }}: {{ date }}</span></div>
     </div>
-    <div class="text-center">
-      <a href="https://www.facebook.com/arkecosystem" target="_blank">
+    <div class="text-center" style="display: none">
+      <a href="https://www.facebook.com/phantom-wallet" target="_blank">
         <svg
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +15,7 @@
         </svg>
       </a>
 
-      <a href="https://twitter.com/ArkEcosystem" target="_blank">
+      <a href="https://twitter.com/PhantomWallet" target="_blank">
         <svg
           viewBox="0 0 24 24"
           class="m-2"
@@ -37,7 +37,7 @@
         </svg>
       </a>
 
-      <a href="mailto:info@ark.io" target="_blank">
+      <a href="mailto:info@phantom-wallet.com" target="_blank">
         <svg
           viewBox="0 0 24 24"
           class="m-2"
@@ -59,7 +59,7 @@
         </svg>
       </a>
 
-      <a href="https://www.reddit.com/r/arkecosystem" target="_blank">
+      <a href="https://www.reddit.com/r/phantomwallet" target="_blank">
         <svg
           viewBox="0 0 17 17"
           class="m-2"
@@ -70,7 +70,7 @@
         </svg>
       </a>
 
-      <a href="https://github.com/ArkEcosystem" target="_blank">
+      <a href="https://github.com/phantomwallet" target="_blank">
         <svg
           viewBox="0 0 24 24"
           class="m-2"
@@ -92,7 +92,7 @@
         </svg>
       </a>
 
-      <a href="https://ark.io/slack" target="_blank">
+      <a href="https://phantom-wallet.com/slack" target="_blank">
         <svg
           viewBox="0 0 24 24"
           class="m-2"
@@ -113,7 +113,7 @@
         </svg>
       </a>
 
-      <a href="https://gitter.im/ark-developers/Lobby" target="_blank">
+      <a href="https://gitter.im/phantom-developers/Lobby" target="_blank">
         <svg
           viewBox="0 0 24 24"
           class="m-2"
@@ -124,7 +124,7 @@
         </svg>
       </a>
 
-      <a href="https://steemit.com/@arkecosystem" target="_blank">
+      <a href="https://steemit.com/@phantomwallet" target="_blank">
         <svg
           viewBox="0 0 24 24"
           class="m-2"
@@ -135,7 +135,7 @@
         </svg>
       </a>
 
-      <a href="https://blog.ark.io" target="_blank">
+      <a href="https://blog.phantomwallet.com" target="_blank">
         <svg
           viewBox="0 0 24 24"
           class="m-2"
@@ -162,7 +162,7 @@ export default {
       return GIT_VERSION
     },
     versionLink() {
-      return `https://github.com/ArkEcosystem/explorer/commit/${GIT_VERSION}`
+      return `https://github.com/PhantomChain/explorer/commit/${GIT_VERSION}`
     },
     date() {
       return GIT_DATE
