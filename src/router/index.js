@@ -19,7 +19,7 @@ const NotFoundComponent = () => import('@/pages/404')
 
 Vue.use(Router)
 
-const titleSuffix = ' - ARK Explorer'
+const titleSuffix = ' - Phantom Explorer'
 
 const router = new Router({
   mode: process.env.ROUTER_MODE,
