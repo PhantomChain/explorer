@@ -1,6 +1,6 @@
 {
   "title": "Phantom Testnet Explorer",
-  "server": "http://18.218.68.94:4100/api",
+  "server": "https://texplorer.phantom.org:4200/api",
   "alias": "Test",
   "activeDelegates": 51,
   "rewardOffset": 75600,
