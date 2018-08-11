@@ -1,7 +1,7 @@
 {
   "title": "Phantom Testnet Explorer",
   "server": "http://18.218.68.94:4100/api",
-  "alias": "TestNet",
+  "alias": "Test",
   "activeDelegates": 51,
   "rewardOffset": 75600,
   "currencies": {
@@ -23,7 +23,7 @@
     "USD": "$"
   },
   "knownWallets": {
-    "JhBpXaifvk4ixwKjxYdw4nZR547ucf2Twt": "Genesis Wallet"
+    "JRLLaK9T1thk9exkN6TSACL9si7Eqr9ebP": "Genesis Wallet"
   },
   "defaults": {
     "currency": {
