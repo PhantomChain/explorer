@@ -1,6 +1,6 @@
 {
   "title": "PHANTOM Explorer",
-  "server": "https://texplorer.phantom.org:4200/api",
+  "server": "https://explorer.phantom.org:8443/api",
   "alias": "Main",
   "activeDelegates": 51,
   "rewardOffset": 75600,
