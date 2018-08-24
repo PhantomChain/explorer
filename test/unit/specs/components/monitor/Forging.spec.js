@@ -34,7 +34,7 @@ describe('monitor/Forging', () => {
       mixins,
       store,
       stubs: {
-        'ark-meter': '<div></div>'
+        'phantom-meter': '<div></div>'
       },
       propsData: {
         delegates: []

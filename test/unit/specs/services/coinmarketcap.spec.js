@@ -3,10 +3,10 @@ import store from '@/store'
 
 describe('Coinmarketcap Service', () => {
   beforeAll(() => {
-    store.dispatch('network/setServer', 'https://explorer.ark.io:8443/api')
+    store.dispatch('network/setServer', 'https://explorer.phantom.io:8443/api')
   })
 
-  it('should return price for ARK in given currency', async () => {
+  it('should return price for PHANTOM in given currency', async () => {
     const data = await coinmarketcapService.price('USD')
     expect(data).toBeGreaterThan(0)
   })

@@ -3,7 +3,7 @@ import store from '@/store'
 
 describe('Loader Service', () => {
   beforeAll(() => {
-    store.dispatch('network/setServer', 'https://explorer.ark.io:8443/api')
+    store.dispatch('network/setServer', 'https://explorer.phantom.io:8443/api')
   })
 
   it('should return network settings', async () => {

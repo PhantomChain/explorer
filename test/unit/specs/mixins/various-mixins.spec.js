@@ -35,15 +35,15 @@ describe('isDelegateByPublicKey mixin', () => {
 
 describe('rawCurrency mixin', () => {
   it('should display selected cryptocurrency with 8 digits or less', () => {
-    store.dispatch('network/setToken', 'ARK')
-    expect(mixins.rawCurrency(10.1234567891234, 'ARK')).toEqual(displayCrypto(10.12345679))
+    store.dispatch('network/setToken', 'PHANTOM')
+    expect(mixins.rawCurrency(10.1234567891234, 'PHANTOM')).toEqual(displayCrypto(10.12345679))
     expect(mixins.rawCurrency(10.1234567891234, 'ETH')).toEqual(displayCrypto(10.12345679))
     expect(mixins.rawCurrency(10.1234567891234, 'BTC')).toEqual(displayCrypto(10.12345679))
-    expect(mixins.rawCurrency(10.12345, 'ARK')).toEqual(displayCrypto(10.12345))
+    expect(mixins.rawCurrency(10.12345, 'PHANTOM')).toEqual(displayCrypto(10.12345))
   })
 
   it('should display non-cryptocurrency always with 2 digits', () => {
-    store.dispatch('network/setToken', 'ARK')
+    store.dispatch('network/setToken', 'PHANTOM')
     expect(mixins.rawCurrency(10.1234567891, 'USD')).toEqual(displayFiat(10.12))
     expect(mixins.rawCurrency(10.1234567891, 'AUD')).toEqual(displayFiat(10.12))
     expect(mixins.rawCurrency(10.1234567891, 'EUR')).toEqual(displayFiat(10.12))
@@ -86,7 +86,7 @@ describe('readableCrypto mixin', () => {
 
 describe('networkToken mixin', () => {
   it('should return the set network token', () => {
-    store.dispatch('network/setToken', 'ARK')
-    expect(mixins.networkToken()).toEqual('ARK')
+    store.dispatch('network/setToken', 'PHANTOM')
+    expect(mixins.networkToken()).toEqual('PHANTOM')
   })
 })
