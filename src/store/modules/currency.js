@@ -3,7 +3,7 @@ import * as types from '../mutation-types'
 export default {
   namespaced: true,
   state: {
-    name: 'ARK',
+    name: 'PHANTOM',
     rate: 1,
     symbol: 'Ѧ',
     lastConversion: {

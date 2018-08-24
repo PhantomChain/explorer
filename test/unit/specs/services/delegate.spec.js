@@ -26,7 +26,7 @@ const voterPropertyArray = [
 
 describe('Delegate Service', () => {
   beforeAll(() => {
-    store.dispatch('network/setServer', 'https://explorer.ark.io:8443/api')
+    store.dispatch('network/setServer', 'https://explorer.phantom.io:8443/api')
     store.dispatch('network/setActiveDelegates', 51)
   })
 
@@ -55,9 +55,9 @@ describe('Delegate Service', () => {
   })
 
   it('should return the delegate when searching by username', async() => {
-    const data = await delegateService.findByUsername('arkpool')
+    const data = await delegateService.findByUsername('phantompool')
     expect(Object.keys(data).sort()).toEqual(delegatePropertyArray)
-    expect(data.username).toBe('arkpool')
+    expect(data.username).toBe('phantompool')
   })
 
   it('should fail when searching for delegate by non-existing username', async() => {
@@ -67,7 +67,7 @@ describe('Delegate Service', () => {
   it('should return the delegate when searching by public key', async() => {
     const data = await delegateService.find('02b1d2ea7c265db66087789f571fceb8cc2b2d89e296ad966efb8ed51855f2ae0b')
     expect(Object.keys(data).sort()).toEqual(delegatePropertyArray.concat('forged').sort())
-    expect(data.username).toBe('arkpool')
+    expect(data.username).toBe('phantompool')
   })
 
   it('should fail if the public key exists but does not correspond to a delegate', async() => {

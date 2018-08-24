@@ -69,7 +69,7 @@ module.exports = {
   },
 
   'header should be able to change currency': function(browser) {
-    browser.useXpath().click("//button[contains(., 'ARK/USD')]")
+    browser.useXpath().click("//button[contains(., 'PHANTOM/USD')]")
     browser
       .useCss()
       .assert.visible('.menu-button')
@@ -77,14 +77,14 @@ module.exports = {
     browser
       .useXpath()
       .click("//button[contains(., 'ETH')]")
-      .waitForElementVisible("//button[contains(., 'ARK/ETH')]")
+      .waitForElementVisible("//button[contains(., 'PHANTOM/ETH')]")
     browser
-      .click("//button[contains(., 'ARK/ETH')]")
+      .click("//button[contains(., 'PHANTOM/ETH')]")
       .useCss().waitForElementVisible('.close-button')
     browser
       .useXpath()
       .click("//button[contains(., 'USD')]")
-      .waitForElementVisible("//button[contains(., 'ARK/USD')]")
+      .waitForElementVisible("//button[contains(., 'PHANTOM/USD')]")
     browser
       .useCss()
       .expect.element('.menu-button').to.not.be.present
@@ -266,7 +266,7 @@ module.exports = {
       .click('input#search')
       .pause(500)
       .waitForElementVisible('input.search-input')
-      .setValue('input.search-input', ['ARK Bounty', browser.Keys.ENTER])
+      .setValue('input.search-input', ['PHANTOM Bounty', browser.Keys.ENTER])
       .pause(1000)
     browser
       .useXpath()

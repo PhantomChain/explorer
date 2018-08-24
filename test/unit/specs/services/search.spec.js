@@ -3,9 +3,7 @@ import store from '@/store'
 
 describe('Search Service', () => {
   beforeAll(() => {
-    jest.setTimeout(60000)
-
-    store.dispatch('network/setServer', 'https://explorer.ark.io:8443/api')
+    store.dispatch('network/setServer', 'https://explorer.phantom.io:8443/api')
   })
 
   it('should return address when searching for existing wallet', async () => {
@@ -29,7 +27,7 @@ describe('Search Service', () => {
   })
 
   it('should return delegate address when searching for existing username', async () => {
-    const data = await searchService.findByUsername('arkpool')
+    const data = await searchService.findByUsername('phantompool')
     expect(Object.keys(data.delegate).sort()).toEqual([
       'username',
       'address',
