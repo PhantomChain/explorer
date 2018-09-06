@@ -7,6 +7,7 @@
   "scripts": {
     "build": "node build/build.js",
     "build:mainnet": "node build/build.js --network phantomTestnet",
+    "build:testnet": "node build/build.js --network phantomTestnet",
     "build:devnet": "node build/build.js --network phantomTestnet",
     "build:phantomTestnet": "node build/build.js --network phantomTestnet",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
