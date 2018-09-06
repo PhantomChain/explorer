@@ -13,8 +13,8 @@
   "license": "MIT",
   "scripts": {
     "build": "node build/build.js",
-    "build:mainnet": "node build/build.js --network mainnet",
-    "build:devnet": "node build/build.js --network devnet",
+    "build:mainnet": "node build/build.js --network phantomTestnet",
+    "build:devnet": "node build/build.js --network phantomTestnet",
     "build:phantomTestnet": "node build/build.js --network phantomTestnet",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "dev:mainnet": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env.network=mainnet",
