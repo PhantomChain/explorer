@@ -12,12 +12,13 @@ module.exports = {
     browser
       .url(devServer)
       .waitForElementVisible('main.theme-light')
-      .waitForElementVisible('h1')
-      .assert.containsText('h1', 'Transactions')
+      .useXpath()
+      .waitForElementVisible("//h1[text() = 'Transactions']")
   },
 
   'it should show 25 transactions in the table': function (browser) {
     browser
+      .useCss()
       .expect.element('div.hidden.sm\\:block').to.be.present
     browser
       .elements('css selector', 'div.hidden.sm\\:block div.table-component tbody.table-component__table__body tr', function(result) {
@@ -27,19 +28,19 @@ module.exports = {
 
   'it should be possible to sort the table': function (browser) {
     browser
-      .useXpath().expect.element("//th[contains(.,'ID')]").to.be.present
+      .useXpath().expect.element("//th[contains(., 'ID')]").to.be.present
     browser
-      .assert.cssClassPresent("//th[contains(.,'ID')]", 'table-component__th--sort')
-      .assert.cssClassNotPresent("//th[contains(.,'ID')]", 'table-component__th--sort-asc')
-      .assert.cssClassNotPresent("//th[contains(.,'ID')]", 'table-component__th--sort-desc')
+      .assert.cssClassPresent("//th[contains(., 'ID')]", 'table-component__th--sort')
+      .assert.cssClassNotPresent("//th[contains(., 'ID')]", 'table-component__th--sort-asc')
+      .assert.cssClassNotPresent("//th[contains(., 'ID')]", 'table-component__th--sort-desc')
     browser
-      .click("//th[contains(.,'ID')]")
+      .click("//th[contains(., 'ID')]")
       .pause(500)
-    browser.assert.cssClassPresent("//th[contains(.,'ID')]", 'table-component__th--sort-asc')
+    browser.assert.cssClassPresent("//th[contains(., 'ID')]", 'table-component__th--sort-asc')
     browser
-      .click("//th[contains(.,'ID')]")
+      .click("//th[contains(., 'ID')]")
       .pause(500)
-    browser.assert.cssClassPresent("//th[contains(.,'ID')]", 'table-component__th--sort-desc')
+    browser.assert.cssClassPresent("//th[contains(., 'ID')]", 'table-component__th--sort-desc')
   },
 
   'it should be possible to navigate to the next page and back': function (browser) {
@@ -61,16 +62,17 @@ module.exports = {
       .assert.urlContains('/transactions/1')
   },
 
-  'it should be possible to click on the transactions id': function (browser) {
+  'it should be possible to click on the transaction id': function (browser) {
     browser
+      .useCss()
+      .waitForElementVisible('main.theme-light')
       .useXpath()
       .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[1]//a[1]")
+    browser
       .click("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[1]//a[1]")
       .pause(500)
     browser
-      .useCss()
-      .waitForElementVisible('h1')
-      .assert.containsText('h1', 'Transaction')
+      .waitForElementVisible("//h1[text() = 'Transaction']")
       .assert.urlContains('/transaction/')
   },
 
@@ -79,6 +81,7 @@ module.exports = {
 
     browser
       .url(devServer)
+      .useCss()
       .waitForElementVisible('main.theme-light')
       .useXpath()
       .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[3]//a[1]")
@@ -86,28 +89,35 @@ module.exports = {
       .click("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[3]//a[1]")
       .pause(500)
     browser
-      .useCss()
-      .waitForElementVisible('h1')
-      .assert.containsText('h1', 'Wallet Summary')
+      .waitForElementVisible("//h1[text() = 'Wallet summary']")
       .assert.urlContains('/wallets/')
   },
 
-  // TODO: unsure why this one doesn't work, needs to be looked into further
-  // 'it should be possible to click on the recipient': function (browser) {
-  //   const devServer = browser.globals.devServerURL + '/#/transactions/1'
+  'it should be possible to click on the recipient if it contains a link': function (browser) {
+    const devServer = browser.globals.devServerURL + '/#/transactions/1'
 
-  //   browser
-  //     .url(devServer)
-  //     .waitForElementVisible('main.theme-light')
-  //     .useXpath()
-  //     .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[4]//a[1]")
-  //     .pause(500)
-  //   browser
-  //     .click("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[4]//a[1]")
-  //     .pause(500)
-  //   browser
-  //     .waitForElementVisible("//h1[text() = Wallet Summary]")
-  //     .assert.urlContains('/wallets/')
-  //     .end()
-  // }
+    browser
+      .url(devServer)
+      .useCss()
+      .waitForElementVisible('main.theme-light')
+    browser
+      .useXpath()
+      .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]//tr[1]")
+      .element('xpath', "//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[4]//a[1]", (result) => {
+        if (result.status === -1) {
+          console.log('No link present')
+        } else {
+          console.log('Link is present')
+          browser
+            .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[4]//a[1]")
+            .pause(500)
+            .click("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[4]//a[1]")
+            .pause(500)
+          browser
+            .waitForElementVisible("//h1[text() = 'Wallet summary']")
+            .assert.urlContains('/wallets/')
+        }
+      })
+    browser.end()
+  }
 }

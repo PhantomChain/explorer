@@ -21,11 +21,11 @@
 
       <table-column show="recipientId" :label="$t('Recipient')" header-class="left-header-cell" cell-class="left-cell">
         <template slot-scope="row">
-          <link-wallet :address="row.recipientId" :type="row.type"></link-wallet>
+          <link-wallet :address="row.recipientId" :type="row.type" :asset="row.asset"></link-wallet>
         </template>
       </table-column>
 
-      <table-column show="amount" :label="$t('Amount (token)', {token: networkToken()})" header-class="right-header-cell" cell-class="right-cell">
+      <table-column show="amount" :label="$t('Amount (token)', { token: networkToken() })" header-class="right-header-cell" cell-class="right-cell">
         <template slot-scope="row">
           <span class="whitespace-no-wrap">
             <transaction-amount :transaction="row" :type="row.type"></transaction-amount>
@@ -33,7 +33,7 @@
         </template>
       </table-column>
 
-      <table-column show="fee" :label="$t('Fee (token)', {token: networkToken()})" header-class="right-header-cell hidden md:table-cell" cell-class="right-cell hidden md:table-cell">
+      <table-column show="fee" :label="$t('Fee (token)', { token: networkToken() })" header-class="right-header-cell hidden md:table-cell" cell-class="right-cell hidden md:table-cell">
         <template slot-scope="row">
           {{ readableCrypto(row.fee) }}
         </template>
@@ -42,13 +42,13 @@
       <table-column show="confirmations" :label="$t('Confirmations')" header-class="right-header-end-cell" cell-class="right-end-cell">
         <template slot-scope="row">
           <div class="flex items-center justify-end whitespace-no-wrap">
-            <div v-if="row.confirmations <= 52" class="flex items-center justify-end whitespace-no-wrap">
+            <div v-if="row.confirmations <= activeDelegates" class="flex items-center justify-end whitespace-no-wrap">
               <span class="text-green inline-block mr-2">{{ row.confirmations }}</span>
               <img class="icon flex-none" src="@/assets/images/icons/clock.svg" />
             </div>
             <div v-else>
               <div v-tooltip="row.confirmations + ' ' + $t('Confirmations')">
-                {{ $t("Well Confirmed") }}
+                {{ $t("Well confirmed") }}
               </div>
             </div>
           </div>
@@ -56,12 +56,14 @@
       </table-column>
     </table-component>
     <div v-else class="px-5 md:px-10">
-      <span>{{ $t("No Results") }}</span>
+      <span>{{ $t("No results") }}</span>
     </div>
   </loader>
 </template>
 
 <script type="text/ecmascript-6">
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     transactions: {
@@ -71,6 +73,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters('network', ['activeDelegates']),
+
     showSmartBridgeIcon() {
       if (this.transactions) {
         return this.transactions.some(transaction => {

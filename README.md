@@ -11,7 +11,7 @@ You can access the TESTNET explorer it at [https://texplorer.phantom.org](https:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/PhantomCore/explorer
+git clone https://github.com/PhantomChain/explorer
 ```
 
 ### 2. Install Dependencies
@@ -49,61 +49,55 @@ You can run the explorer as an express server. This makes it a little more light
 EXPLORER_HOST="127.0.0.1" EXPLORER_PORT="4200" node express-server.js
 ```
 
-## 4. History Mode
-
-If you wish to remove the `/#/` from your URLs you can follow those steps https://router.vuejs.org/en/essentials/history-mode.html.
-
-### 4.1 Build
-
-```bash
-yarn build:mainnet --history
-```
-
-### 4.2 Development
-
-```bash
-yarn dev --env.routerMode=history
-```
-
 > Keep in mind that this requires you to run your own server and a running instance of nginx.
 
-## 5. Development
+### 4. Development
 
-#### Mainnet
+#### 4.1 Mainnet
 
 ```bash
 yarn dev # or yarn dev:mainnet
 ```
 
-#### Devnet
+#### 4.2 Devnet
 
 ```bash
 yarn dev:devnet
 ```
 
-#### Custom
+#### 4.3 Custom
 
 ```bash
 yarn dev --env.network=custom
 ```
 
-#### Change Router Mode
+### 5. History Mode
+
+If you wish to remove the `/#/` from your URLs you can follow those steps https://router.vuejs.org/en/essentials/history-mode.html.
+
+#### 5.1 Build
+
+```bash
+yarn build:mainnet --history
+```
+
+#### 5.2 Development
 
 ```bash
 yarn dev --env.routerMode=history
 ```
 
-## 6. Testing
+## Testing
 
 ``` bash
 $ yarn test
 ```
 
-## 7. Security
+## Security
 
 If you discover a security vulnerability within this package, please send an e-mail to security@phantom.org. All security vulnerabilities will be promptly addressed.
 
-## 8. Contributing
+## Contributing
 
 * If you find any bugs, submit an [issue](../../issues) or open a [pull-request](../../pulls), helping us catch and fix them.
 

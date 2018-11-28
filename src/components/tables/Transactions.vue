@@ -21,17 +21,17 @@
 
       <table-column show="recipientId" :label="$t('Recipient')" header-class="left-header-cell" cell-class="left-cell">
         <template slot-scope="row">
-          <link-wallet :address="row.recipientId" :type="row.type"></link-wallet>
+          <link-wallet :address="row.recipientId" :type="row.type" :asset="row.asset"></link-wallet>
         </template>
       </table-column>
 
       <table-column show="vendorField" :label="$t('Smartbridge')" header-class="right-header-cell hidden lg:table-cell" cell-class="right-cell hidden lg:table-cell">
         <template slot-scope="row">
-          {{ truncate(row.vendorField || '', 35, 'right') }}
+          {{ truncate(emojify(row.vendorField) || '', 35, 'right') }}
         </template>
       </table-column>
 
-      <table-column show="amount" :label="$t('Amount (token)', {token: networkToken()})" header-class="right-header-end-cell lg:pr-4" cell-class="right-end-cell lg:pr-4">
+      <table-column show="amount" :label="$t('Amount (token)', { token: networkToken() })" header-class="right-header-end-cell lg:pr-4" cell-class="right-end-cell lg:pr-4">
         <template slot-scope="row">
           <span class="whitespace-no-wrap">
             <transaction-amount :transaction="row" :type="row.type"></transaction-amount>
@@ -39,14 +39,14 @@
         </template>
       </table-column>
 
-      <table-column show="fee" :label="$t('Fee (token)', {token: networkToken()})" header-class="right-header-end-cell hidden lg:table-cell" cell-class="right-end-cell hidden lg:table-cell">
+      <table-column show="fee" :label="$t('Fee (token)', { token: networkToken() })" header-class="right-header-end-cell hidden lg:table-cell" cell-class="right-end-cell hidden lg:table-cell">
         <template slot-scope="row">
           {{ readableCrypto(row.fee) }}
         </template>
       </table-column>
     </table-component>
     <div v-else class="px-5 md:px-10">
-      <span>{{ $t("No Results") }}</span>
+      <span>{{ $t("No results") }}</span>
     </div>
   </loader>
 </template>

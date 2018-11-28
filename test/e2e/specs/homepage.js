@@ -4,6 +4,9 @@
 // Disable eslint for .to.not.be.present statements
 /* eslint-disable no-unused-expressions */
 
+const events = require('events')
+events.EventEmitter.defaultMaxListeners = 50
+
 module.exports = {
   // Default homepage test, which also serves as setup for correct url
   'homepage should be available': function (browser) {
@@ -12,12 +15,13 @@ module.exports = {
     browser
       .url(devServer)
       .waitForElementVisible('main.theme-light')
-      .waitForElementVisible('h1')
-      .assert.containsText('h1', 'Latest transactions and blocks')
+      .useXpath()
+      .waitForElementVisible("//h1[text() = 'Latest transactions and blocks']")
   },
 
   'homepage should contain expected components': function(browser) {
     browser
+      .useCss()
       .elements('css selector', '.bg-stat-background > div', function(result) {
         browser.elementIdText(result.value[0].ELEMENT, function(elemResult) {
           browser.assert.ok(elemResult.value.startsWith('Height'))
@@ -33,8 +37,8 @@ module.exports = {
         })
       })
       .assert.visible('#line-chart')
-      .assert.containsText('div .active-tab', 'Latest Transactions')
-      .assert.containsText('div .inactive-tab', 'Latest Blocks')
+      .assert.containsText('div .active-tab', 'Latest transactions')
+      .assert.containsText('div .inactive-tab', 'Latest blocks')
   },
 
   // Header tests
@@ -97,21 +101,79 @@ module.exports = {
       })
   },
 
+  // Language switcher tests
+
+  'language menu should open and close': function(browser) {
+    browser
+      .click('#language-icon')
+      .pause(500)
+
+    browser.assert.visible('.language-menu')
+
+    browser
+      .click('.close-button')
+      .pause(500)
+
+    browser.assert.elementNotPresent('.language-menu')
+  },
+
+  'language menu should contain flag images': function(browser) {
+    browser
+      .click('#language-icon')
+      .pause(500)
+
+    // flag is image of type svg so it must've been found
+    browser.assert.visible('.language-menu img.flag-image')
+    browser.assert.attributeContains('.language-menu img.flag-image', 'src', 'image/svg')
+
+    browser
+      .click('.close-button')
+      .pause(500)
+  },
+
+  'from language menu, it should be possible to change language': function(browser) {
+    // select first language
+    browser
+      .waitForElementVisible('#language-icon')
+      .click('#language-icon')
+      .pause(500)
+      .click('.language-menu button:nth-child(1) img.flag-image')
+      .pause(1000)
+    browser.getText('h1', function(result) {
+      // select second language
+      browser
+        .click('#language-icon')
+        .pause(500)
+        .click('.language-menu button:nth-child(2) img.flag-image')
+        .pause(1000)
+      browser.getText('h1', function(result2) {
+        // translation should've changed
+        browser.assert.notEqual(result.value, result2.value)
+
+        // end session to restore default language (for other tests)
+        browser.end()
+      })
+    })
+  },
+
   // Menu tests
   'menu should be able to be opened and closed': function(browser) {
+    const devServer = browser.globals.devServerURL
     browser
+      .url(devServer)
+      .waitForElementVisible('h1')
       .click('button.border-transparent')
       .pause(500)
     browser.assert.visible('.menu-button')
     browser.elements('css selector', '.menu-button', function(result) {
       browser.elementIdText(result.value[0].ELEMENT, function(elemResult) {
-        browser.assert.ok(elemResult.value === 'Home')
+        browser.assert.equal(elemResult.value, 'Home')
       })
       browser.elementIdText(result.value[1].ELEMENT, function(elemResult) {
-        browser.assert.ok(elemResult.value === 'Top Wallets')
+        browser.assert.equal(elemResult.value, 'Top Wallets')
       })
       browser.elementIdText(result.value[2].ELEMENT, function(elemResult) {
-        browser.assert.ok(elemResult.value === 'Delegate Monitor')
+        browser.assert.equal(elemResult.value, 'Delegate Monitor')
       })
     })
 
@@ -122,12 +184,13 @@ module.exports = {
     const devServer = browser.globals.devServerURL
 
     browser
+      .useCss()
       .url(devServer)
       .waitForElementVisible('main.theme-light')
-      .waitForElementVisible('button.border-transparent')
-      .click('button.border-transparent')
-    browser
       .useXpath()
+      .waitForElementVisible("//button[contains(@class, 'border-transparent')]//span[contains(., 'Menu')]")
+      .click("//button[contains(@class, 'border-transparent')]//span[contains(., 'Menu')]")
+    browser
       .waitForElementVisible("//button[contains(., 'Top Wallets')]")
       .click("//button[contains(., 'Top Wallets')]")
       .pause(500)
@@ -138,8 +201,9 @@ module.exports = {
 
   'from menu, it should be possible to navigate to delegate monitor': function(browser) {
     browser
-      .useCss().click('button.border-transparent')
-      .useXpath()
+      .waitForElementVisible("//button[contains(@class, 'border-transparent')]//span[contains(., 'Menu')]")
+      .click("//button[contains(@class, 'border-transparent')]//span[contains(., 'Menu')]")
+    browser
       .waitForElementVisible("//button[contains(., 'Delegate Monitor')]")
       .click("//button[contains(., 'Delegate Monitor')]")
       .pause(500)
@@ -150,8 +214,9 @@ module.exports = {
 
   'from menu, it should be possible to navigate back to homepage': function(browser) {
     browser
-      .useCss().click('button.border-transparent')
-      .useXpath()
+      .waitForElementVisible("//button[contains(@class, 'border-transparent')]//span[contains(., 'Menu')]")
+      .click("//button[contains(@class, 'border-transparent')]//span[contains(., 'Menu')]")
+    browser
       .waitForElementVisible("//button[contains(., 'Home')]")
       .click("//button[contains(., 'Home')]")
       .pause(500)
@@ -166,32 +231,24 @@ module.exports = {
     browser
       .url(devServer)
       .useXpath()
-      .click("//div[contains(@class, 'inactive-tab') and contains(text(), 'Latest Blocks')]")
-      .waitForElementVisible("//div[contains(@class, 'active-tab') and contains(text(), 'Latest Blocks')]")
-    browser.expect.element("//div[contains(@class, 'active-tab') and contains(text(), 'Latest Blocks')]").to.be.present
-    browser.expect.element("//div[contains(@class, 'inactive-tab') and contains(text(), 'Latest Transactions')]").to.be.present
+      .click("//div[contains(@class, 'inactive-tab') and contains(text(), 'Latest blocks')]")
+      .waitForElementVisible("//div[contains(@class, 'active-tab') and contains(text(), 'Latest blocks')]")
+    browser.expect.element("//div[contains(@class, 'active-tab') and contains(text(), 'Latest blocks')]").to.be.present
+    browser.expect.element("//div[contains(@class, 'inactive-tab') and contains(text(), 'Latest transactions')]").to.be.present
   },
 
   'latest block table should refresh automatically': function (browser) {
     const devServer = browser.globals.devServerURL
+    const element = "//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[2]"
 
     browser
       .url(devServer)
       .useXpath()
-      .click("//div[contains(@class, 'inactive-tab') and contains(text(), 'Latest Blocks')]")
+      .click("//div[contains(@class, 'inactive-tab') and contains(text(), 'Latest blocks')]")
       .waitForElementVisible("//thead[contains(@class, 'table-component__table__head')]//tr[1]//th[4][contains(., 'Transactions')]")
     browser
-      .getText("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[2]", function(result) {
-        const blockId = result.value
-
-        browser
-          .expect.element("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[2][contains(., '" + blockId + "')]").to.be.present
-        browser
-          .waitForElementNotPresent("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[2][contains(., '" + blockId + "')]", 20000)
-        browser
-          .getText("//tbody[contains(@class, 'table-component__table__body')]//tr[1]//td[2]", function(result) {
-            browser.assert.notEqual(result.value, blockId)
-          })
+      .getText(element, function(result) {
+        browser.expect.element(element).text.to.not.contain(result.value).after(20000);
       })
   },
 
@@ -201,16 +258,19 @@ module.exports = {
 
     browser
       .url(devServer)
+      .useXpath()
+      .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]")
       .useCss()
       .waitForElementVisible('input#search')
     browser
       .click('input#search')
+      .pause(500)
       .waitForElementVisible('input.search-input')
       .setValue('input.search-input', ['PHANTOM Bounty', browser.Keys.ENTER])
       .pause(1000)
     browser
       .useXpath()
-      .waitForElementVisible("//h1[text() = 'Wallet Summary']")
+      .waitForElementVisible("//h1[text() = 'Wallet summary']")
       .assert.urlContains('/wallets/AYCTHSZionfGoQsRnv5gECEuFWcZXS38gs')
   },
 
@@ -219,16 +279,40 @@ module.exports = {
 
     browser
       .url(devServer)
+      .useXpath()
+      .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]")
       .useCss()
       .waitForElementVisible('input#search')
     browser
       .click('input#search')
+      .pause(500)
       .waitForElementVisible('input.search-input')
       .setValue('input.search-input', ['genesis_1', browser.Keys.ENTER])
       .pause(1000)
     browser
       .useXpath()
-      .waitForElementVisible("//h1[text() = 'Wallet Summary']")
+      .waitForElementVisible("//h1[text() = 'Wallet summary']")
+      .assert.urlContains('/wallets/AeLpRK8rFVtBeyBVqBtdQpWDfLzaiNujKr')
+  },
+
+  'it should be possible to search for a delegate with uppercase letters': function (browser) {
+    const devServer = browser.globals.devServerURL
+
+    browser
+      .url(devServer)
+      .useXpath()
+      .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]")
+      .useCss()
+      .waitForElementVisible('input#search')
+    browser
+      .click('input#search')
+      .pause(500)
+      .waitForElementVisible('input.search-input')
+      .setValue('input.search-input', ['gEnESis_1', browser.Keys.ENTER])
+      .pause(1000)
+    browser
+      .useXpath()
+      .waitForElementVisible("//h1[text() = 'Wallet summary']")
       .assert.urlContains('/wallets/AeLpRK8rFVtBeyBVqBtdQpWDfLzaiNujKr')
   },
 
@@ -237,28 +321,34 @@ module.exports = {
 
     browser
       .url(devServer)
+      .useXpath()
+      .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]")
       .useCss()
       .waitForElementVisible('input#search')
     browser
       .click('input#search')
+      .pause(500)
       .waitForElementVisible('input.search-input')
       .setValue('input.search-input', ['AUDud8tvyVZa67p3QY7XPRUTjRGnWQQ9Xv', browser.Keys.ENTER])
       .pause(1000)
     browser
       .useXpath()
-      .waitForElementVisible("//h1[text() = 'Wallet Summary']")
+      .waitForElementVisible("//h1[text() = 'Wallet summary']")
       .assert.urlContains('/wallets/AUDud8tvyVZa67p3QY7XPRUTjRGnWQQ9Xv')
   },
 
-  'it should be possible to search for a block ID': function (browser) {
+  'it should be possible to search for a block id': function (browser) {
     const devServer = browser.globals.devServerURL
 
     browser
       .url(devServer)
+      .useXpath()
+      .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]")
       .useCss()
       .waitForElementVisible('input#search')
     browser
       .click('input#search')
+      .pause(500)
       .waitForElementVisible('input.search-input')
       .setValue('input.search-input', ['13507259488170268466', browser.Keys.ENTER])
       .pause(1000)
@@ -268,15 +358,18 @@ module.exports = {
       .assert.urlContains('/block/13507259488170268466')
   },
 
-  'it should be possible to search for a transaction ID': function (browser) {
+  'it should be possible to search for a transaction id': function (browser) {
     const devServer = browser.globals.devServerURL
 
     browser
       .url(devServer)
+      .useXpath()
+      .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]")
       .useCss()
       .waitForElementVisible('input#search')
     browser
       .click('input#search')
+      .pause(500)
       .waitForElementVisible('input.search-input')
       .setValue('input.search-input', ['4a169d00de2029110829fad77eebf6fd25751418b47561f05b994750acbd3b13', browser.Keys.ENTER])
       .pause(1000)
@@ -291,16 +384,19 @@ module.exports = {
 
     browser
       .url(devServer)
+      .useXpath()
+      .waitForElementVisible("//tbody[contains(@class, 'table-component__table__body')]")
       .useCss()
       .waitForElementVisible('input#search')
     browser
       .click('input#search')
+      .pause(500)
       .waitForElementVisible('input.search-input')
       .setValue('input.search-input', ['asdfnothingfoundforthisvalueasdf', browser.Keys.ENTER])
       .pause(1000)
     browser
       .useXpath()
       .waitForElementVisible("//div[contains(@class, 'tooltip-inner') and text() = 'Nothing matched your search']")
-      .end()
+    browser.end()
   }
 }

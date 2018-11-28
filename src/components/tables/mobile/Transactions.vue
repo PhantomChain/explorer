@@ -19,28 +19,28 @@
 
         <div class="list-row-border-b">
           <div>{{ $t("Recipient") }}</div>
-          <link-wallet :address="transaction.recipientId" :type="transaction.type"></link-wallet>
+          <link-wallet :address="transaction.recipientId" :type="transaction.type" :asset="transaction.asset"></link-wallet>
         </div>
 
         <div class="list-row-border-b-no-wrap" v-if="truncate(transaction.vendorField || '')">
           <div class="mr-4">{{ $t("Smartbridge") }}</div>
-          <div class="truncate">{{ transaction.vendorField }}</div>
+          <div class="truncate">{{ emojify(transaction.vendorField) }}</div>
         </div>
 
         <div class="list-row-border-b">
-          <div>{{ $t("Amount (token)", {token: networkToken()}) }}</div>
+          <div>{{ $t("Amount (token)", { token: networkToken() }) }}</div>
           <div>
             <transaction-amount :transaction="transaction" :type="transaction.type"></transaction-amount>
           </div>
         </div>
 
         <div class="list-row">
-          <div>{{ $t("Fee (token)", {token: networkToken()}) }}</div>
+          <div>{{ $t("Fee (token)", { token: networkToken() }) }}</div>
           <div>{{ readableCrypto(transaction.fee) }}</div>
         </div>
       </div>
       <div v-if="transactions && !transactions.length" class="px-5 md:px-10">
-        <span>{{ $t("No Results") }}</span>
+        <span>{{ $t("No results") }}</span>
       </div>
     </loader>
   </div>

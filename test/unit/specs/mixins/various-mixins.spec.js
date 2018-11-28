@@ -55,6 +55,7 @@ describe('rawCurrency mixin', () => {
 describe('readableFiat mixin', () => {
   it('should display fiat currency with two digits', () => {
     store.dispatch('currency/setName', 'USD')
+    store.dispatch('ui/setLocale', 'en-us')
     expect(mixins.readableFiat(10.234)).toEqual('$10.23')
     expect(mixins.readableFiat(10.23423478592034)).toEqual('$10.23')
   })
@@ -88,5 +89,11 @@ describe('networkToken mixin', () => {
   it('should return the set network token', () => {
     store.dispatch('network/setToken', 'PHANTOM')
     expect(mixins.networkToken()).toEqual('PHANTOM')
+  })
+})
+
+describe('emojify mixin', () => {
+  it('should return emoji', () => {
+    expect(mixins.emojify(':smile:')).toEqual('😄')
   })
 })

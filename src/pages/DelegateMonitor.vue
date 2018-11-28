@@ -4,7 +4,7 @@
 
     <delegate-detail :delegateCount="delegateCount"></delegate-detail>
 
-    <section class="page-section py-8">
+    <section class="page-section py-5 md:py-10">
       <nav class="mx-5 sm:mx-10 mb-4 border-b flex items-end">
         <div
           @click="activeTab = 'active'"
@@ -44,7 +44,7 @@ export default {
 
   data: () => ({
     delegates: null,
-    delegateCount: null,
+    delegateCount: 0,
     activeTab: 'active'
   }),
 

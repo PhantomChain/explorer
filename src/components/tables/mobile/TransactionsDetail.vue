@@ -19,12 +19,12 @@
 
         <div class="list-row-border-b">
           <div>{{ $t("Recipient") }}</div>
-          <link-wallet :address="transaction.recipientId" :type="transaction.type"></link-wallet>
+          <link-wallet :address="transaction.recipientId" :type="transaction.type" :asset="transaction.asset"></link-wallet>
         </div>
 
         <div class="list-row-border-b-no-wrap" v-if="transaction.vendorField">
           <div class="mr-4">{{ $t("Smartbridge") }}</div>
-          <div class="truncate">{{ transaction.vendorField }}</div>
+          <div class="truncate">{{ emojify(transaction.vendorField) }}</div>
         </div>
 
         <div class="list-row-border-b">
@@ -43,31 +43,37 @@
           <div>{{ $t("Confirmations") }}</div>
           <div>
             <div class="flex items-center justify-end">
-              <div v-if="transaction.confirmations <= 52" class="flex items-center justify-end whitespace-no-wrap">
+              <div v-if="transaction.confirmations <= activeDelegates" class="flex items-center justify-end whitespace-no-wrap">
                 <span class="text-green inline-block mr-2">{{ transaction.confirmations }}</span>
                 <img class="icon flex-none" src="@/assets/images/icons/clock.svg" />
               </div>
               <div v-else>
-                {{ $t("Well Confirmed") }}
+                {{ $t("Well confirmed") }}
               </div>
             </div>
           </div>
         </div>
       </div>
       <div v-if="transactions && !transactions.length" class="px-5 md:px-10">
-        <span>{{ $t("No Results") }}</span>
+        <span>{{ $t("No results") }}</span>
       </div>
     </loader>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     transactions: {
       // type: Array or null
       required: true,
     }
+  },
+
+  computed: {
+    ...mapGetters('network', ['activeDelegates'])
   }
 }
 </script>

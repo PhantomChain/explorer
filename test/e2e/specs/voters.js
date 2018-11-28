@@ -12,12 +12,20 @@ module.exports = {
     browser
       .url(devServer)
       .waitForElementVisible('main.theme-light')
-      .waitForElementVisible('h1')
-      .assert.containsText('h1', 'Voters')
+      .useXpath()
+      .waitForElementVisible("//h1[text()[contains(., 'Voters')]]")
+  },
+
+  'it should display the delegates name': function (browser) {
+    browser
+      .useXpath()
+      .waitForElementVisible('//h1//span')
+      .expect.element("//h1//span[contains(., 'arkpool')]").to.be.visible
   },
 
   'it should be possible to navigate to the next page and back': function (browser) {
     browser
+      .useCss()
       .waitForElementVisible('div.table-component')
       .assert.urlContains('/voters/1')
       .useXpath().expect.element("//button[contains(., 'Previous')]").to.not.be.visible
@@ -38,19 +46,19 @@ module.exports = {
     browser
       .useCss()
       .waitForElementVisible('div.table-component')
-      .useXpath().expect.element("//th[contains(.,'Address')]").to.be.present
+      .useXpath().expect.element("//th[contains(., 'Address')]").to.be.present
     browser
-      .assert.cssClassPresent("//th[contains(.,'Address')]", 'table-component__th--sort')
-      .assert.cssClassNotPresent("//th[contains(.,'Address')]", 'table-component__th--sort-asc')
-      .assert.cssClassNotPresent("//th[contains(.,'Address')]", 'table-component__th--sort-desc')
+      .assert.cssClassPresent("//th[contains(., 'Address')]", 'table-component__th--sort')
+      .assert.cssClassNotPresent("//th[contains(., 'Address')]", 'table-component__th--sort-asc')
+      .assert.cssClassNotPresent("//th[contains(., 'Address')]", 'table-component__th--sort-desc')
     browser
-      .click("//th[contains(.,'Address')]")
+      .click("//th[contains(., 'Address')]")
       .pause(500)
-    browser.assert.cssClassPresent("//th[contains(.,'Address')]", 'table-component__th--sort-asc')
+    browser.assert.cssClassPresent("//th[contains(., 'Address')]", 'table-component__th--sort-asc')
     browser
-      .click("//th[contains(.,'Address')]")
+      .click("//th[contains(., 'Address')]")
       .pause(500)
-    browser.assert.cssClassPresent("//th[contains(.,'Address')]", 'table-component__th--sort-desc')
+    browser.assert.cssClassPresent("//th[contains(., 'Address')]", 'table-component__th--sort-desc')
   },
 
   'it should contain 25 wallets on a page': function (browser) {
@@ -71,8 +79,19 @@ module.exports = {
       .pause(500)
     browser
       .useXpath()
-      .waitForElementVisible("//h1[contains(.,'Wallet Summary')]")
+      .waitForElementVisible("//h1[contains(., 'Wallet summary')]")
       .assert.urlContains('/wallets/')
-      .end()
+  },
+
+  'it should redirect to 404 if the wallet address is invalid': function(browser) {
+    const devServer = browser.globals.devServerURL + '/#/wallets/ffffffffffffffffffffffffffffffffff/voters/1'
+
+    browser
+      .url(devServer)
+      .useXpath()
+      .waitForElementVisible("//h1[text() = 'Ooops!']")
+    browser
+      .assert.urlContains('/404')
+    browser.end()
   }
 }
