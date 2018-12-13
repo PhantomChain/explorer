@@ -1,6 +1,6 @@
 {
   "title": "DPHANTOM Explorer",
-  "server": "https://texplorer.phantom.org:4200/api",
+  "server": "http://95.183.52.105:4003/api",
   "alias": "Development",
   "activeDelegates": 51,
   "rewardOffset": 10800,
