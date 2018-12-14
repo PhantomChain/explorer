@@ -7,7 +7,7 @@
 module.exports = {
   // Default test, which also serves as setup for correct url
   'transaction detail page should be available': function (browser) {
-    const devServer = browser.globals.devServerURL + '/#/transaction/818c157383c814a353efbfbbdd3dccabb13cb35e156bb70d31e77248166657a7'
+    const devServer = browser.globals.devServerURL + '/#/transaction/a6cf8e0d7bbef63effdfafc879fa642864304e0bf60602c58190cb42b9dc9d1a'
 
     browser
       .url(devServer)
@@ -33,11 +33,11 @@ module.exports = {
       .pause(500)
     browser
       .waitForElementVisible("//h1[text() = 'Wallet summary']")
-      .assert.urlContains('wallets/AFrPtEmzu6wdVpa2CnRDEKGQQMWgq8nE9V')
+      .assert.urlContains('wallets/PmCBgBdhhLfJArNngRAAMAZkvzc11SVKtZ')
   },
 
   'it should be possible to click on the recipient': function(browser) {
-    const devServer = browser.globals.devServerURL + '/#/transaction/818c157383c814a353efbfbbdd3dccabb13cb35e156bb70d31e77248166657a7'
+    const devServer = browser.globals.devServerURL + '/#/transaction/a6cf8e0d7bbef63effdfafc879fa642864304e0bf60602c58190cb42b9dc9d1a'
 
     browser
       .url(devServer)
@@ -50,11 +50,11 @@ module.exports = {
       .pause(500)
     browser
       .waitForElementVisible("//h1[text() = 'Wallet summary']")
-      .assert.urlContains('wallets/ATJDMLxBXPxn9bss911HTFCp9PhBHih9uL')
+      .assert.urlContains('wallets/PmCBgBdhhLfJArNngRAAMAZkvzc11SVKtZ')
   },
 
   'it should be possible to click on the transaction block id': function(browser) {
-    const devServer = browser.globals.devServerURL + '/#/transaction/818c157383c814a353efbfbbdd3dccabb13cb35e156bb70d31e77248166657a7'
+    const devServer = browser.globals.devServerURL + '/#/transaction/a6cf8e0d7bbef63effdfafc879fa642864304e0bf60602c58190cb42b9dc9d1a'
 
     browser
       .url(devServer)
@@ -67,7 +67,7 @@ module.exports = {
       .pause(500)
     browser
       .waitForElementVisible("//h1[text() = 'Block']")
-      .assert.urlContains('block/12374209887221238137')
+      .assert.urlContains('block/12784060533583365451')
   },
 
   'it should emojify the vendor field': function(browser) {
@@ -80,7 +80,7 @@ module.exports = {
       .waitForElementVisible('.list-row-border-b')
     browser
       .useXpath()
-      .expect.element("//div[contains(@class, 'list-row-border-b')][7]//div[2]").text.to.equal('ARK ❤️ you')
+      .expect.element("//div[contains(@class, 'list-row-border-b')][7]//div[2]").text.to.equal('XPH ❤️ you')
     browser.end()
   }
 

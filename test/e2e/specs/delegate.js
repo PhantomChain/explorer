@@ -7,7 +7,7 @@
 module.exports = {
   // Default test, which also serves as setup for correct url
   'delegate wallet summary page should be available': function (browser) {
-    const devServer = browser.globals.devServerURL + '/#/wallets/ARAq9nhjCxwpWnGKDgxveAJSijNG8Y6dFQ'
+    const devServer = browser.globals.devServerURL + '/#/wallets/PmCBgBdhhLfJArNngRAAMAZkvzc11SVKtZ'
 
     browser
       .url(devServer)

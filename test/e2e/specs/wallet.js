@@ -7,7 +7,7 @@
 module.exports = {
   // Default test, which also serves as setup for correct url
   'wallet summary page should be available': function(browser) {
-    const devServer = browser.globals.devServerURL + '/#/wallets/AYCTHSZionfGoQsRnv5gECEuFWcZXS38gs'
+    const devServer = browser.globals.devServerURL + '/#/wallets/PmCBgBdhhLfJArNngRAAMAZkvzc11SVKtZ'
 
     browser
       .url(devServer)

@@ -7,7 +7,7 @@
 module.exports = {
   // Default test, which also serves as setup for correct url
   'block detail page should be available': function (browser) {
-    const devServer = browser.globals.devServerURL + '/#/block/3487084709104787070'
+    const devServer = browser.globals.devServerURL + '/#/block/14931596885286847026'
 
     browser
       .url(devServer)
@@ -18,12 +18,12 @@ module.exports = {
 
   'it should be possible to navigate to next block and back': function(browser) {
     browser
-      .waitForElementVisible("//div[contains(@class, 'semibold') and contains(@class, 'truncate')]/span[contains(text(), '3487084709104787070')]")
+      .waitForElementVisible("//div[contains(@class, 'semibold') and contains(@class, 'truncate')]/span[contains(text(), '14931596885286847026')]")
       .click("//button[contains(., 'Next')]")
-      .waitForElementVisible("//div[contains(@class, 'semibold') and contains(@class, 'truncate')]/span[contains(text(), '12152817243754268433')]")
+      .waitForElementVisible("//div[contains(@class, 'semibold') and contains(@class, 'truncate')]/span[contains(text(), '9616223999228142781')]")
     browser
       .click("//button[contains(., 'Previous')]")
-      .waitForElementVisible("//div[contains(@class, 'semibold') and contains(@class, 'truncate')]/span[contains(text(), '3487084709104787070')]")
+      .waitForElementVisible("//div[contains(@class, 'semibold') and contains(@class, 'truncate')]/span[contains(text(), '14931596885286847026')]")
   },
 
   'it should not contain a transaction table if block has no transactions': function(browser) {
@@ -38,7 +38,7 @@ module.exports = {
 
   'it should contain a transaction table if block has 1 or more transactions': function(browser) {
     browser
-      .url(browser.globals.devServerURL + '/#/block/12287662939647858585')
+      .url(browser.globals.devServerURL + '/#/block/12590805541321336731')
       .pause(500)
       .waitForElementVisible('div.table-component')
       .useXpath().assert.containsText("//div[.='Transactions']/following-sibling::div[1]", '1')

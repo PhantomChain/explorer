@@ -8,7 +8,7 @@ describe('CryptoCompare Service', () => {
     store.dispatch('currency/setName', 'USD')
   })
 
-  it('should return price for ARK in given currency', async () => {
+  it('should return price for XPH in given currency', async () => {
     const data = await cryptoCompareService.price('USD')
     expect(data).toBeGreaterThan(0)
   })
@@ -65,7 +65,7 @@ describe('CryptoCompare Service', () => {
 
   it('should return null if not on Main network', async () => {
     store.dispatch('network/setAlias', 'Development')
-    store.dispatch('currency/setName', 'DARK')
+    store.dispatch('currency/setName', 'DXPH')
     const data = await cryptoCompareService.dailyAverage(45089379)
     expect(data).toBe(null)
   })

@@ -7,7 +7,7 @@
 module.exports = {
   // Default test, which also serves as setup for correct url
   'voters page should be available': function (browser) {
-    const devServer = browser.globals.devServerURL + '/#/wallets/ARAq9nhjCxwpWnGKDgxveAJSijNG8Y6dFQ/voters/1'
+    const devServer = browser.globals.devServerURL + '/#/wallets/PmCBgBdhhLfJArNngRAAMAZkvzc11SVKtZ/voters/1'
 
     browser
       .url(devServer)

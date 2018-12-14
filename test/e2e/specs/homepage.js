@@ -69,7 +69,7 @@ module.exports = {
   },
 
   'header should be able to change currency': function(browser) {
-    browser.useXpath().click("//button[contains(., 'PHANTOM/USD')]")
+    browser.useXpath().click("//button[contains(., 'XPH/USD')]")
     browser
       .useCss()
       .assert.visible('.menu-button')
@@ -77,14 +77,14 @@ module.exports = {
     browser
       .useXpath()
       .click("//button[contains(., 'ETH')]")
-      .waitForElementVisible("//button[contains(., 'PHANTOM/ETH')]")
+      .waitForElementVisible("//button[contains(., 'XPH/ETH')]")
     browser
-      .click("//button[contains(., 'PHANTOM/ETH')]")
+      .click("//button[contains(., 'XPH/ETH')]")
       .useCss().waitForElementVisible('.close-button')
     browser
       .useXpath()
       .click("//button[contains(., 'USD')]")
-      .waitForElementVisible("//button[contains(., 'PHANTOM/USD')]")
+      .waitForElementVisible("//button[contains(., 'XPH/USD')]")
     browser
       .useCss()
       .expect.element('.menu-button').to.not.be.present
@@ -144,7 +144,7 @@ module.exports = {
       browser
         .click('#language-icon')
         .pause(500)
-        .click('.language-menu button:nth-child(2) img.flag-image')
+        .click('.language-menu button:nth-child(3) img.flag-image')
         .pause(1000)
       browser.getText('h1', function(result2) {
         // translation should've changed
