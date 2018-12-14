@@ -1,14 +1,14 @@
 {
   "name": "phantom-explorer",
   "version": "3.0.0",
-  "description": "A Blockchain Explorer for ARK using Vue.js and Tailwind CSS",
+  "description": "A Blockchain Explorer for PHANTOM using Vue.js and Tailwind CSS",
   "author": "Brian Faust",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arkecosystem/explorer.git"
+    "url": "git+https://github.com/phantomchain/explorer.git"
   },
   "bugs": {
-    "url": "https://github.com/arkecosystem/explorer/issues"
+    "url": "https://github.com/phantomchain/explorer/issues"
   },
   "license": "MIT",
   "scripts": {
