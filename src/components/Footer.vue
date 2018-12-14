@@ -48,7 +48,7 @@
         </svg>
       </a>
 
-      <a href="https://telegram.me/ArkEcosystem" target="_blank">
+      <a href="https://telegram.me/phantomAI" target="_blank">
         <svg
           viewBox="0 0 14 14"
           class="m-2"
@@ -103,7 +103,7 @@
         </svg>
       </a>
 
-      <a href="https://ark.io/discord" target="_blank">
+      <a href="https://phantom.org/discord" target="_blank">
         <svg
           viewBox="0 0 24 24"
           class="m-2"
