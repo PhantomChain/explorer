@@ -1,6 +1,6 @@
 {
   "title": "TPHANTOM Explorer",
-  "server": "http://95.183.53.28:4100/api",
+  "server": "http://95.183.52.105:4003/api",
   "alias": "Testnet local",
   "activeDelegates": 51,
   "rewardOffset": 75600,
