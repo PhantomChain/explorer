@@ -127,7 +127,7 @@ const methods = {
       'BTC': 'Ƀ',
       'ETH': 'Ξ',
       'LTC': 'Ł',
-      'XPH': 'Ẕ'
+      'XPH': 'ⓟ'
     }
 
     return [store.getters['network/token'], 'BTC', 'ETH', 'LTC'].some(

@@ -5,7 +5,7 @@ export default {
   state: {
     name: 'XPH',
     rate: 1,
-    symbol: 'Ẕ',
+    symbol: 'ⓟ',
     lastConversion: {
       to: 'USD',
       timestamp: 1,
