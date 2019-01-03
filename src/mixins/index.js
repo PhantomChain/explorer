@@ -26,10 +26,10 @@ const methods = {
     return moment()
       .utc()
       .set({
-        year: 2018,
-        month: 11,
-        date: 26,
-        hour: 2,
+        year: 2019,
+        month: 0,
+        date: 3,
+        hour: 12,
         minute: 0,
         second: 0,
       })
@@ -43,10 +43,10 @@ const methods = {
       return moment()
         .utc()
         .set({
-          year: 2018,
-          month: 11,
-          date: 26,
-          hour: 2,
+          year: 2019,
+          month: 0,
+          date: 3,
+          hour: 12,
           minute: 0,
           second: 0,
         })
