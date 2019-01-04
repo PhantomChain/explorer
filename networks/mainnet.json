@@ -3,7 +3,7 @@
   "server": "https://explorer.phantom.org:8443/api",
   "alias": "Main",
   "activeDelegates": 51,
-  "rewardOffset": 75600,
+  "rewardOffset": 300000,
   "currencies": {
     "AUD": "A$",
     "BRL": "R$",

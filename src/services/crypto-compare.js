@@ -59,10 +59,10 @@ class CryptoCompareService {
     let ts = moment()
       .utc()
       .set({
-        year: 2017,
-        month: 2,
-        date: 21,
-        hour: 13,
+        year: 2019,
+        month: 0,
+        date: 3,
+        hour: 12,
         minute: 0,
         second: 0
       })

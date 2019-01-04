@@ -6,10 +6,10 @@ describe('readable timestamp mixin', () => {
     const result = moment()
       .utc()
       .set({
-        year: 2017,
-        month: 11,
+        year: 2019,
+        month: 0,
         date: 3,
-        hour: 20,
+        hour: 12,
         minute: 31,
         second: 40,
       })
