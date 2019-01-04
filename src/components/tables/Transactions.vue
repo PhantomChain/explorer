@@ -9,7 +9,7 @@
 
       <table-column show="timestamp" :label="$t('Timestamp')" header-class="left-header-cell hidden md:table-cell" cell-class="left-cell hidden md:table-cell wrap-timestamp">
         <template slot-scope="row">
-          {{ readableTimestamp(row.timestamp) }}
+          {{ readableTimestamp(row.timestamp / 1000) }}
         </template>
       </table-column>
 
