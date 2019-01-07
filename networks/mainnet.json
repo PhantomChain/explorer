@@ -22,7 +22,13 @@
     "USD": "$"
   },
   "knownWallets": {
-    "PUGcQvxYfDNsXeBE1DMbdyaPh5Qp8Sxiq2": "Genesis Wallet"
+    "PUGcQvxYfDNsXeBE1DMbdyaPh5Qp8Sxiq2": "Genesis Wallet",
+    "PMUFqCp7QeGrfrr7eXPZsMp6SFExxkXscq": "Bittrex",
+    "P9atrUx6b8naSSBedmqkvN6aAm1iiJQGbN": "Binance",
+    "PHaHDWYuCNAwRgZwe6wMDUuq5pGDFqfvh7": "Binance_2",
+    "PDWDxeMCoGYBpTL4cbyJ6F4Vj2XmkDRnpp": "HitBTC",
+    "PMSJ57V5wnSZZjJbjiyJPcEPvCxpQBvzXm": "OKEx",
+    "PBbSeFe7rmHjGQq9KtUUXK9kR9AYgfdXC1": "Kucoin"
   },
   "defaults": {
     "token": "ARK",
