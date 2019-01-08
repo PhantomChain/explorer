@@ -23,7 +23,6 @@ export default {
   props: ['transactionType'],
   data: () => ({
     transactions: null,
-    transactionType: null
   }),
 
   async mounted() {

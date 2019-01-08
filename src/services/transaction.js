@@ -22,7 +22,7 @@ class TransactionService {
         type: (type === -1) ? '' : type
       }
     })
-    return response.data.transactions
+    return this.fixTimestamp(response.data.transactions)
   }
 
   async find(id) {
@@ -183,6 +183,8 @@ class TransactionService {
     } else {
       data.timestamp -= FIX_OFFSET
     }
+
+    console.log(data)
 
     return data
   }
