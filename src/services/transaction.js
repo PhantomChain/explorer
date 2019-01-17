@@ -8,7 +8,7 @@ class TransactionService {
         limit
       }
     })
-    return this.fixTimestamp(response.data.transactions)
+    return response.data.transactions
   }
 
   async filterByType(page, type, limit = 25) {
@@ -22,7 +22,7 @@ class TransactionService {
         type: (type === -1) ? '' : type
       }
     })
-    return this.fixTimestamp(response.data.transactions)
+    return response.data.transactions
   }
 
   async find(id) {
@@ -31,7 +31,7 @@ class TransactionService {
         id
       }
     })
-    return this.fixTimestamp(response.data.transaction)
+    return response.data.transaction
   }
 
   async findByBlock(id, page = 1, limit = 25) {
@@ -45,7 +45,7 @@ class TransactionService {
         orderBy: 'timestamp:desc'
       }
     })
-    return this.fixTimestamp(response.data.transactions)
+    return response.data.transactions
   }
 
   async latestRegistrations() {
@@ -56,7 +56,7 @@ class TransactionService {
         type: 2
       }
     })
-    return this.fixTimestamp(response.data.transactions)
+    return response.data.transactions
   }
 
   async latestVotes() {
@@ -67,7 +67,7 @@ class TransactionService {
         type: 3
       }
     })
-    return this.fixTimestamp(response.data.transactions)
+    return response.data.transactions
   }
 
   async allByAddress(address, page = 1, limit = 25) {
@@ -82,7 +82,7 @@ class TransactionService {
         orderBy: 'timestamp:desc'
       }
     })
-    return this.fixTimestamp(response.data.transactions)
+    return response.data.transactions
   }
 
   async sentByAddress(senderId, page = 1, limit = 25) {
@@ -96,7 +96,7 @@ class TransactionService {
         orderBy: 'timestamp:desc'
       }
     })
-    return this.fixTimestamp(response.data.transactions)
+    return response.data.transactions
   }
 
   async receivedByAddress(recipientId, page = 1, limit = 25) {
@@ -110,7 +110,7 @@ class TransactionService {
         orderBy: 'timestamp:desc'
       }
     })
-    return this.fixTimestamp(response.data.transactions)
+    return response.data.transactions
   }
 
   async sentByAddressCount(senderId) {
@@ -153,7 +153,7 @@ class TransactionService {
         offset
       }
     })
-    return this.fixTimestamp(response.data.transactions)
+    return response.data.transactions
   }
 
   async paginateByAddress(address, page = 1, limit = 25) {
@@ -168,25 +168,7 @@ class TransactionService {
         orderBy: 'timestamp:desc'
       }
     })
-    return this.fixTimestamp(response.data.transactions)
-  }
-
-  fixTimestamp(data) {
-    const FIX_OFFSET = 56415597
-
-    if (data.length) {
-      data.forEach(transaction => {
-        if (transaction.timestamp) {
-          transaction.timestamp -= FIX_OFFSET
-        }
-      })
-    } else {
-      data.timestamp -= FIX_OFFSET
-    }
-
-    console.log(data)
-
-    return data
+    return response.data.transactions
   }
 }
 
