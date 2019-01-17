@@ -4,9 +4,11 @@ import store from '@/store'
 
 class CryptoCompareService {
   async price(currency) {
-    const response = await axios.get(`https://min-api.cryptocompare.com/data/price?fsym=XPH&tsyms=${currency}`)
-    if (response.data.hasOwnProperty(currency)) {
-      return Number(response.data[currency])
+    const response = await axios.get(`https://apiv2.bitz.com/Market/coinRate?coins=xph`)
+    const key = currency.toLowerCase()
+
+    if (response.data.data.xph && response.data.data.xph.hasOwnProperty(key)) {
+      return Number(response.data.data.xph[key])
     }
   }
 
