@@ -13,7 +13,7 @@ class CryptoCompareService {
   }
 
   async day() {
-    return this.sendRequest('hour', 24, 'HH:mm')
+    return this.sendRequest('day', 1, 'HH:mm')
   }
 
   async week() {
@@ -32,7 +32,7 @@ class CryptoCompareService {
     return this.sendRequest('day', 365, 'DD.MM')
   }
 
-  async sendRequest(type, limit, dateTimeFormat) {
+  async sendRequest(type, days, dateTimeFormat) {
     const date = Math.round(new Date().getTime() / 1000)
 
     let targetCurrency = 'USD'
@@ -41,15 +41,15 @@ class CryptoCompareService {
     }
 
     const response = await axios
-      .get(`https://min-api.cryptocompare.com/data/histo${type}`, {
+      .get(`https://api.coingecko.com/api/v3/coins/phantom/market_chart`, {
         params: {
-          fsym: store.getters['network/token'],
-          tsym: targetCurrency,
-          toTs: date,
-          limit
+          vs_currency: targetCurrency,
+          days
         }
       })
-    return this.transform(response.data.Data, dateTimeFormat)
+
+      console.log(this.transform(response.data.market_caps, dateTimeFormat))
+    return this.transform(response.data.prices, dateTimeFormat)
   }
 
   async dailyAverage(timestamp) {
@@ -121,10 +121,10 @@ class CryptoCompareService {
   transform(response, dateTimeFormat) {
     return {
       labels: response.map(value => {
-        return moment.unix(value.time).format(dateTimeFormat)
+        return moment(value[0]).format(dateTimeFormat)
       }),
       datasets: response.map(value => {
-        return value.close
+        return value[1]
       })
     }
   }

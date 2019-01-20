@@ -62,7 +62,7 @@ export default {
                   return store.getters['currency/symbol'] + value.toFixed(8)
                 }
 
-                return store.getters['currency/symbol'] + value.toFixed(2)
+                return store.getters['currency/symbol'] + value.toFixed(4)
               },
               fontColor: '#838a9b',
               fontSize: 13,
